@@ -21,7 +21,7 @@ class TechnologySeeder extends Seeder
             ],
             [
                 "name" => 'JavaScript',
-                'color' => '#1F8B4C'
+                'color' => '#4260f5'
             ],
             [
                 "name" => 'Bootsrap',
@@ -33,7 +33,7 @@ class TechnologySeeder extends Seeder
             ],
             [
                 "name" => 'PHP',
-                'color' => "#388E3C"
+                'color' => "#3254a8"
             ],
             [
                 "name" => 'Laravel',

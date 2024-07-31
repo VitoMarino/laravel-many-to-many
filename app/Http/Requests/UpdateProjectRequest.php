@@ -29,6 +29,7 @@ class UpdateProjectRequest extends FormRequest
             'image' => 'url',
             // Non inserire spazi a caso perchè me lo formatta come un carattere che però in questo caso, non esiste
             'type_id'=> 'required|integer|exists:types,id',
+            'technologies'=> 'required|array|exists:technologies,id',
         ];
     }
 }

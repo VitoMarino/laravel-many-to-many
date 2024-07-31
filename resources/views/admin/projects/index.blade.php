@@ -8,6 +8,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Type</th>
+                            <th scope="col">Technology</th>
                             <th scope="col">Name</th>
                             <th scope="col">Activity</th>
                             <th scope="col">Description</th>
@@ -23,6 +24,16 @@
                         @foreach ($projects as $project)
                             <tr>
                                 <td>{{$project->type->name}}</td>
+
+                                <!--Facendo delle prove ho riscontrato che è necessario fare il forelse prima di poter far vedere gli elementi collegati tra loro-->
+                                <td>
+                                    @forelse ( $project->technologies as $technology )
+                                    <span class="badge" style="background-color:{{$technology->color}}">{{$technology->name}}</span>
+                                @empty
+                                    <td>---</td>
+                                @endforelse
+                                </td>
+
                                 <td>{{ $project->name }}</td>
                                 <td>{{ $project->activity }}</td>
                                 <td>{{ $project->description }}</td>

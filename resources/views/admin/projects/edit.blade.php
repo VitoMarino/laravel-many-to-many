@@ -31,6 +31,7 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="type_id">Type</label>
                         <select class="form-select mb-3" aria-label="Default select example" name="type_id">
                             @foreach ($types as $type)
                                 <!--All'interno della option gli sto dicendo che se non trova la categoria che ho selezionato, deve comunque lasciare quella che ho messo. WARNING: Usare doppio uguale e NON triplo uguale, in questo caso.-->
@@ -43,6 +44,25 @@
                         </select>
                         @error('type_id')
                             <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                    <!--CHECKBOX-->
+                    <div class="mb-3">
+                        <label for="technology" class="d-block">Technolgy</label>
+                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                @foreach ($technologies as $technology)
+                                <!--Per evitare che si selezioni sempre lo stesso badge, devo modificare l'id aggiungendo quello che ho scritto sotto-->
+                                <!--COSA IMPORTANTE DA RICORDARE. Nel caso di una checbox, nel name, per passare i dati correttamente dobbiamo mettere [], per passare tutti i dati.-->
+                                    <input name="technologies[]" type="checkbox" class="btn-check" id="technology-check-{{$technology->id}}"
+                                        autocomplete="off" value="{{ $technology->id }}">
+                                    <label class="btn btn-outline-primary me-2 rounded-3" for="technology-check-{{$technology->id}}">{{ $technology->name }}</label>
+                                @endforeach
+                            </div>
+                        @error('technologies')
+                            <div class="alert alert-danger mt-3">
                                 {{ $message }}
                             </div>
                         @enderror

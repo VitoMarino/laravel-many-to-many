@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -31,7 +32,8 @@ class ProjectController extends Controller
         //
         $project = new Project();
         $types = Type::all();
-        return view("admin.projects.create", compact('project', 'types'));
+        $technologies = Technology::all();
+        return view("admin.projects.create", compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -41,9 +43,13 @@ class ProjectController extends Controller
     {
         //
         $data = $request->validated();
-        $data['name'] = Auth::user()->name;
+
+        $data['name'] = Auth::user()->id;
         $data['date'] = Carbon::now();
+
         $newProject = Project::create($data);
+        // Dopo che ho creato un nuovo progetto, prendi le tecnologies, e sincronizzaci la lista dei project che hai
+        $newProject->technologies()->sync($data['technologies']);
 
         return redirect()->route('admin.projects.show', $newProject);
     }
@@ -66,7 +72,9 @@ class ProjectController extends Controller
     {
         //
         $types = Type::all();
-        return view("admin.projects.edit", compact("project", "types"));
+
+        $technologies = Technology::all();
+        return view("admin.projects.edit", compact("project", "types", 'technologies'));
     }
 
     /**
@@ -77,6 +85,8 @@ class ProjectController extends Controller
         //
         $data = $request->validated();
         $project->update($data);
+
+        $project->technologies()->sync($data["technologies"]);
 
         return redirect()->route("admin.projects.show", $project);
     }
