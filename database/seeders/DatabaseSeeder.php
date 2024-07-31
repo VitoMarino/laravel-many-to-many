@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             // Nel db seeder, non è come le migrations che stabiliscono in modo temporale l'ordine.
             // Qui dobbiamo dare noi l'ordine
             TypeSeeder::class,
+            TechnologySeeder::class,
             ProjectSeeder::class,
         ]);
     }

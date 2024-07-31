@@ -18,7 +18,7 @@ class TypeSeeder extends Seeder
     {
         //
         $typesName = [
-            'HTML-CSS',
+            'HYBRID',
             'FRONT-END',
             'BACK-END',
         ];
