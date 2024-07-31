@@ -56,10 +56,24 @@
                                 @foreach ($technologies as $technology)
                                 <!--Per evitare che si selezioni sempre lo stesso badge, devo modificare l'id aggiungendo quello che ho scritto sotto-->
                                 <!--COSA IMPORTANTE DA RICORDARE. Nel caso di una checbox, nel name, per passare i dati correttamente dobbiamo mettere [], per passare tutti i dati.-->
-                                    <input name="technologies[]" type="checkbox" class="btn-check" id="technology-check-{{$technology->id}}"
-                                        autocomplete="off" value="{{ $technology->id }}">
-                                    <label class="btn btn-outline-primary me-2 rounded-3" for="technology-check-{{$technology->id}}">{{ $technology->name }}</label>
-                                @endforeach
+
+                                <!--Con questa serie di if, sto dicendo: "Se c'è un errore lascia che si vedano ancora i badge che ho cliccato io.
+                                Se però torno indietro, non salvandolo e quindi non editandolo, mi si vedono selezionati solo i badge salvati ed editati effettivi-->
+                                @if($errors->any())
+                                    <input name="technologies[]" type="checkbox" class="btn-check"
+                                        id="technology-check-{{ $technology->id }}" autocomplete="off"
+                                        value="{{ $technology->id }}"
+                                        {{ in_array($technology->id, old('technologies', [])) ? 'checked' : '' }}>
+                                @else
+                                    <input name="technologies[]" type="checkbox" class="btn-check"
+                                        id="technology-check-{{ $technology->id }}" autocomplete="off"
+                                        value="{{ $technology->id }}"
+                                        {{ $project->technologies->contains($technology) ? 'checked' : '' }}>
+                                @enderror
+
+                                <label class="btn btn-outline-primary me-2 rounded-3"
+                                    for="technology-check-{{ $technology->id }}">{{ $technology->name }}</label>
+                            @endforeach
                             </div>
                         @error('technologies')
                             <div class="alert alert-danger mt-3">

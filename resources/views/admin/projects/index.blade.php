@@ -60,6 +60,10 @@
                         @endforeach
                     </tbody>
                 </table>
+
+                <!--Meccanismo di paginazione. Prima andare in Providers > AppServiceProvider ed utilizzare la paginazione di Bootstrap.
+                    Poi dopo nel Controller, nella index, togliere la ALL che fa vedere tutta la tabella ed inserire paginate-->
+                {{$projects->links()}}
             </div>
         </div>
     </div>
