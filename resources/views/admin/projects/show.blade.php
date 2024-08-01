@@ -16,7 +16,8 @@
                 <h4>{{ $project->activity }}</h4>
                 <h4>{{ $project->description }}</h4>
                 <h4>{{ $project->date }}</h4>
-                <img src="{{$project->image}}" alt="{{$project->activity}}">
+                <!--Per mostrare immagine uplodata usare asset--->
+                <img src="{{asset('storage/' . $project->image)}}" alt="{{$project->activity}}">
             </div>
         </div>
     </div>

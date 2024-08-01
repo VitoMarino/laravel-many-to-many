@@ -11,6 +11,7 @@ use App\Models\Type;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -44,8 +45,13 @@ class ProjectController extends Controller
         //
         $data = $request->validated();
 
+        // Prendo il file '$data['image] e lo metto in 'uploads',
+        // Salvando i dati nella variabili, mi restituisce i dati in un luogo
+        $img_path = Storage::put('uploads', $data['image']);
+
         $data['name'] = Auth::user()->id;
         $data['date'] = Carbon::now();
+        $data['image'] = $img_path;
 
         $newProject = Project::create($data);
         // Dopo che ho creato un nuovo progetto, prendi le tecnologies, e sincronizzaci la lista dei project che hai
@@ -85,6 +91,9 @@ class ProjectController extends Controller
         //
         $data = $request->validated();
         $project->update($data);
+
+        $img_path = Storage::put('uploads', $data['image']);
+        $data['image'] = $img_path;
 
         $project->technologies()->sync($data["technologies"]);
 

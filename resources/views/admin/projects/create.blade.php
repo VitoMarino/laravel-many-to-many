@@ -5,7 +5,8 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12">
-                <form action="{{ route('admin.projects.store') }}" method="POST">
+                <!--Nel form è importante inserire (enctype='multipart/form-data'), per poter far caricare un file dall'utente-->
+                <form action="{{ route('admin.projects.store') }}" method="POST" enctype='multipart/form-data'>
                     @method('POST')
                     @csrf
 
@@ -94,8 +95,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="name">Image URL</label>
-                        <input type="text" name="image" id="image" class="form-control mb-3"
+                        <label for="name">Image</label>
+                        <input type="file" name="image" id="image" class="form-control mb-3"
                             value="{{ old('image', $project->image) }}">
                         @error('image')
                             <div class="alert alert-danger mb-3">

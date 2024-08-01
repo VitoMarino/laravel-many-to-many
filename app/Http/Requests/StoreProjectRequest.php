@@ -26,7 +26,7 @@ class StoreProjectRequest extends FormRequest
             'name' => 'required|unique:projects|max:100',
             'activity' => 'required|min:5|max:500',
             'description' => 'required|min:5|max:500',
-            'image' => 'url',
+            'image' => 'image',
             // Non inserire spazi a caso perchè me lo formatta come un carattere che però in questo caso, non esiste
             'type_id'=> 'required|integer|exists:types,id',
             'technologies'=> 'required|array|exists:technologies,id',
