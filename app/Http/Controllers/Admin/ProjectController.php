@@ -90,12 +90,11 @@ class ProjectController extends Controller
     {
         //
         $data = $request->validated();
-        $project->update($data);
-
         $img_path = Storage::put('uploads', $data['image']);
         $data['image'] = $img_path;
-
         $project->technologies()->sync($data["technologies"]);
+
+        $project->update($data);
 
         return redirect()->route("admin.projects.show", $project);
     }
